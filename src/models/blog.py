@@ -1,7 +1,7 @@
 import uuid
 import datetime
-from database import Database
-from models.post import Post
+from src.common.database import Database
+from src.models.post import Post
 
 __author__ = 'jslvtr'
 
@@ -50,5 +50,5 @@ class Blog(object):
         return cls(author=blog_data['author'],
                    title=blog_data['title'],
                    description=blog_data['description'],
-                   id=blog_data['id']) 
+                   id=blog_data['_id']) 
                     
