@@ -5,19 +5,18 @@ class Database(object):
     DATABASE = None
 
     @staticmethod
-    def initailize():
+    def initialize():
         client = pymongo.MongoClient(Database.URI)
-        Database.Database = client['fullstack']
+        Database.DATABASE = client['fullstack']
 
     @staticmethod
     def insert(collection, data):
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
-    def find(collection, data):
+    def find(collection, query):
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
-    def find_one(collection, data):
+    def find_one(collection, query):
         return Database.DATABASE[collection].find_one(query)
-        
