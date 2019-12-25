@@ -7,3 +7,16 @@ class User(object):
 
     def get_by_id(self):
         pass
+
+    def login_valid(self):
+        # Check whether a user's email matches the password they sent us
+        pass
+
+    def register(self):
+        pass
+
+    def login(self):
+        pass
+
+    def get_blogs(self):
+        pass
