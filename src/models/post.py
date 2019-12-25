@@ -7,7 +7,7 @@ __author__ = 'jslvtr'
 
 class Post(object):
 
-    def __init__(self, blog_id, title, content, author, date=datetime.datetime.utcnow(), id=None):
+    def __init__(self, blog__id, title, content, author, date=datetime.datetime.utcnow(), id=None):
         self.blog_id = blog_id
         self.title = title
         self.content = content
