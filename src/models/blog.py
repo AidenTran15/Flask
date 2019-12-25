@@ -25,7 +25,7 @@ class Blog(object):
                     title=title,
                     content=content,
                     author=self.author,
-                    date=date)
+                    created_date=date)
         post.save_to_mongo()
 
     def get_posts(self):
@@ -47,8 +47,4 @@ class Blog(object):
     def from_mongo(cls, _id):
         blog_data = Database.find_one(collection='blogs',
                                       query={'_id': id})
-        return cls(author=blog_data['author'],
-                   title=blog_data['title'],
-                   description=blog_data['description'],
-                   id=blog_data['_id']) 
-                    
+        return cls(**blog_data)
