@@ -35,21 +35,33 @@ class User(object):
         if user is None:
             # User doesn't exist, so we can create it
             new_user = User(email, password)
-            new_user.save_to_mongo
+            new_user.save_to_mongo()
+            session['email'] = email
             return True
         else:
             # User exists
             return False
         
+    @staticmethod
+    def login(user_email):
+        # Login_valid has already been called
+        session['email'] = user_email
 
-    def login(self):
-        pass
+    @staticmethod
+    def logout():
+        session['email'] = None
+
 
     def get_blogs(self):
         pass
 
     def json(self):
-        pass
+        return {
+            "email": self.email,
+            "_id": self._id,
+            "password": self.password
+
+        }
 
     def save_to_mongo(self):
-        pass
+        Database.insert("users", self.json())
