@@ -1,5 +1,7 @@
 import uuid
 from src.common.database import Database
+import flask.sessions
+from src.models.blog import Blog
 
 
 class User(object):
@@ -53,7 +55,7 @@ class User(object):
 
 
     def get_blogs(self):
-        pass
+        return Blog.find_by_author_id(self._id)
 
     def json(self):
         return {
