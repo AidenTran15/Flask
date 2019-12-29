@@ -1,6 +1,6 @@
 import uuid
 from src.common.database import Database
-import flask.sessions
+from flask import session
 from src.models.blog import Blog
 import datetime
 
@@ -23,8 +23,8 @@ class User(object):
         if data is not None:
             return cls(**data)
 
-    @staticmethod 
-    def login_valid(email, valid,):
+    @staticmethod
+    def login_valid(email, password):
         # Check whether a user's email matches the password they sent us
         user = User.get_by_email(email)
         if user is not None:
@@ -47,7 +47,7 @@ class User(object):
         
     @staticmethod
     def login(user_email):
-        # Login_valid has already been called
+        # login_valid has already been called
         session['email'] = user_email
 
     @staticmethod
