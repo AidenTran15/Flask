@@ -33,7 +33,7 @@ class User(object):
         return False
 
     @classmethod
-    def register(cls, password):
+    def register(cls, email, password):
         user = cls.get_by_email(email)
         if user is None:
             # User doesn't exist, so we can create it
