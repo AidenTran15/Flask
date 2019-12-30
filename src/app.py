@@ -3,6 +3,7 @@ from src.models.user import User
 from src.common.database import Database
 from src.models.blog import Blog
 from flask.helpers import make_response
+from src.models.post import Post
 
 
 app = Flask(__name__) #'__main__'
@@ -57,17 +58,18 @@ def user_blogs(user_id=None):
 
     return render_template("user_blogs.html", blogs=blogs, email=user.email)
 
-@app.route('/blogs/new', methods=['POST','GET'])
+
+@app.route('/blogs/new/<string:blog_id>', methods=['POST','GET'])
 def create_new_blog():
     if request.method == 'GET':
         return render_template('new_blog.html')
     else:
         title = request.form['title']
-        description = request.form['description']
+        content = request.form['description']
         user = User.get_by_email(session['email'])
 
-        new_blog = Blog(user.email, title, description, user._id)
-        new_blog.save_to_mongo
+        new_blog = Blog(user.email, title, content, user.email)
+        new_blog.save_to_mongo()
 
         return make_response(user_blogs(user._id))
 
@@ -78,6 +80,20 @@ def blog_posts(blog_id):
     posts = blog.get_posts()
 
     return render_template('posts.html', posts=posts, blog_title=blog.title, blog_id=blog._id)
+
+@app.route('/posts/new/<string:blog_id>', methods=['POST','GET'])
+def create_new_post(blog_id):
+    if request.method == 'GET':
+        return render_template('new_post.html', blog_id=blog_id)
+    else:
+        title = request.form['title']
+        content = request.form['description']
+        user = User.get_by_email(session['email'])
+
+        new_post = Post(blog_id, title, content, user.email)
+        new_post.save_to_mongo()
+
+        return make_response(user_blogs(blog_id))
 
 if __name__ == '__main__':
     app.run(port=1511)
